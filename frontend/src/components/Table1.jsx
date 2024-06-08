@@ -20,6 +20,27 @@ const Table1 = ({todos, setTodos, isLoading }) => {
     }
 
 
+    //aba edit ko pali, edit lai handle garnu paryoni
+    const handleEdit = async(id, value) => {
+        try{
+            const response = await.patch(`http://127.0.0.1:8000/api/todo/${id}/`,value)
+            // response patch gar ani nayatodo(updated form) map gar if, else condition lagayera(to.id =id vaye response data natra todo)
+            const newTodos = todos.map(todo =>todo.id === id ? response.data : todo)
+            setTodos(newTodos)
+
+        } catch(error) {
+            console.log(error);
+        }
+    }
+    // checkbox ko completed vaye tick, non completed vaye untick.garna lai hola
+
+    const handleCheckbox = (id, value ) => {
+        handleEdit(id,{
+            'completed': !value
+        })
+    }
+
+
   return (
     <div className='py-2'>
         
