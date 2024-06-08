@@ -33,9 +33,9 @@ function App() {
   
 
   return (
-    <div className='bg-indigo-200 px-8 min-h-screen'>
-      <nav className='pt-8'>
-        <h1 className='text-5xl text-center pb-12'>ToDo List</h1> 
+    <div className='bg-indigo-200 px-8 min-h-screen '>
+      <nav className='pt-8 '>
+        <h1 className='text-5xl text-center pb-12 py-2  border rounded-xl'>ToDo List</h1> 
       </nav>
       <TodoForm
       setTodos={setTodos}

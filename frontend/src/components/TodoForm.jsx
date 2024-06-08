@@ -35,7 +35,7 @@ const TodoForm = ({ setTodos, fetchData }) => {
   };
 
   return (
-    <div>
+    <div className='py-2'>
       <input 
         type="text" 
         name="title" 
