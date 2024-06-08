@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import { MdOutlineDeleteOutline, MdEditNote, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 
@@ -6,13 +7,13 @@ import { MdOutlineDeleteOutline, MdEditNote, MdOutlineCheckBox, MdOutlineCheckBo
 const Table1 = ({todos, setTodos, isLoading }) => {
 
     // delete ta hamle table garni ho so, table1 components ma garni tesko kaam, jun kura j ma garxam tei ma lekhni 
+    // won't work without importing axios.
     const handleDelete = async (id) =>{ 
         try{
             await axios.delete(`http://127.0.0.1:8000/api/todo/${id}/`)
             //id delete vaye paxi filter garera dekhauna ko lagi 
             const newList = todos.filter(todo => todo.id !==id)
             setTodos(newList)
-
         } catch(error){
             console.log(error);
         }
