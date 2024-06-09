@@ -105,3 +105,9 @@ daisyui(tailwind css plugin : install it through,daisyui/docs/install  (npm i -D
 integration in frontend and backend,
  (axios : npm install axios garera (external http runner ))
  (npm install cors )
+
+####
+All operation of two components is handled by App.jsx 
+Delete, update etc is done inside Table1.jsx and Create is done in TodoForm.jsx
+(atfirst, running virtual environment: python -m venv "virtual env ko nam", "venv\Scripts\activate" then 
+create 3-4 terminal, one for backend, runit, one for frontend, runit, and one for performing other fxn, sabbai ma virtualenv run garayera garda ramro )
