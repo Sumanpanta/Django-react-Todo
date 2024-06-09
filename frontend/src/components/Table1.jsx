@@ -1,11 +1,16 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import { MdOutlineDeleteOutline, MdEditNote, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 
 
 
 const Table1 = ({todos, setTodos, isLoading }) => {
 
+    const [editText, setEditText] = useState({
+        'title': '',
+        'Description':''
+    })
+ 
     // delete ta hamle table garni ho so, table1 components ma garni tesko kaam, jun kura j ma garxam tei ma lekhni 
     // won't work without importing axios.
     const handleDelete = async (id) =>{ 
@@ -13,8 +18,8 @@ const Table1 = ({todos, setTodos, isLoading }) => {
             await axios.delete(`http://127.0.0.1:8000/api/todo/${id}/`)
             //id delete vaye paxi filter garera dekhauna ko lagi 
             const newList = todos.filter(todo => todo.id !==id)
-            setTodos(newList)
-        } catch(error){
+             setTodos(newList)
+             } catch(error){
             console.log(error);
         }
     }
@@ -40,6 +45,26 @@ const Table1 = ({todos, setTodos, isLoading }) => {
         })
     }
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditText(prev => ({
+            ...prev,
+            [name]: value
+          }));
+        
+    }
+
+    const handleClick = () => {
+        handleEdit(editText.id, editText)
+        setEditText({
+            'title': '',
+            'Description':'',
+
+        })
+    }
+    
+
+   
 
   return (
     <div className='py-2  border rounded-xl'>
@@ -88,7 +113,8 @@ const Table1 = ({todos, setTodos, isLoading }) => {
                     <td className='p-3 text-sm font-medium grid grid-flow-col items-center mt-5 '>
                         <span className='text-2xl cursor-pointer'>
                             {/* daisyui/components/modal ko label (hidden) */}
-                        <label htmlFor="my_modal_6" className="btn bg-indigo-200"><MdEditNote/></label></span>
+                        <label htmlFor="my_modal_6" className="btn bg-indigo-200"><MdEditNote onClick={() => setEditText(todoItem)}/></label>
+                        </span>
                         {/* yeha nira cahie delete ko code:so handledelete vanni onclick ko event use garera todoItem ko id lai  */}
                         <span className='text-2xl cursor-pointer'>
                         <label  className="btn bg-indigo-200 ml-1"> <MdOutlineDeleteOutline onClick={() => handleDelete(todoItem.id)}/></label></span>
@@ -106,18 +132,17 @@ const Table1 = ({todos, setTodos, isLoading }) => {
         </table>
 
 
-        {/* The button to open modal */}
-            <label htmlFor="my_modal_6" className="btn">open modal</label>
+   
 
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="my_modal_6" className="modal-toggle" />
             <div className="modal" role="dialog">
             <div className="modal-box">
                 <h3 className="font-bold text-lg mb-4">Edit Todo</h3>
-                <input type="text" name='title' placeholder="Add Todo" className="input input-bordered w-full  mb-4" />
-                <input type="text" name='Description' placeholder="Description here" className="input input-bordered w-full " />
+                <input type="text" name='title' value={editText.title} onChange={handleChange} className="input input-bordered w-full  mb-4" />
+                <input type="text" name='Description' value={editText.Description} onChange={handleChange} className="input input-bordered w-full " />
                 <div className="modal-action">
-                <label htmlFor="my_modal_6" className="btn btn-primary">Edit</label>  
+                <label htmlFor="my_modal_6"  onClick={handleClick} className="btn btn-primary">Edit</label>  
                 <label htmlFor="my_modal_6" className="btn">Close!</label>
                 </div>
             </div>
